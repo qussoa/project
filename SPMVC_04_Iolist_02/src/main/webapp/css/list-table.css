@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 95%;
+	margin: 10px auto;
+	border: 1px solid green;
+}
+
+tr {
+	border: 1px solid #ddd;
+}
+
+th {
+	text-align: left;
+}
+
+td, th {
+	padding: 8px;
+	vertical-align: top;
+}
+/*tr.content-body class가 있는 것*/
+tr.content-body:nth-child(even) {
+	background-color: #ccc;
+}
+
+tr.content-body:nth-child(even) {
+	background-color: #fff;
+}
+
+tr.content-body:hover {
+	background-color: #ddd;
+	cursor: pointer;
+}
