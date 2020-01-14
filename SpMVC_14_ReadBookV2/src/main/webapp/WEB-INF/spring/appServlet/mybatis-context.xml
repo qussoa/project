@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- 환경변수 가져오기 -->
+	<bean id="envConfig"
+		class="org.jasypt.encryption.pbe.config.EnvironmentStringPBEConfig">
+		<property name="algorithm" value="PBEWithMD5AndDES" />
+		<property name="passwordEnvName" value="ORACLE_PASS" />
+	</bean>
+	
+	<!-- 위에 주입한 환경변수를 config에 넣고 복호화 -->
+	<bean id="configEnc"
+		class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor">
+		<property name="config" ref="envConfig" />
+	</bean>
+	
+	<!-- enc함수가 담겨있는 method 평문으로 복호화 -->
+	<bean class="org.jasypt.spring31.properties.EncryptablePropertyPlaceholderConfigurer">
+		<constructor-arg ref="configEnc"/>
+		<property name="location" value="/WEB-INF/spring/oracle.sec.properties"/>
+	</bean>
+
+	<!-- ${oracle.username}" 여기에 채워진다 -->
+	<bean id="ds" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url"
+			value="jdbc:oracle:thin:@localHost:1521:xe" />
+		<property name="username" value="${oracle.username}" />
+		<property name="password" value="${oracle.password}" />
+		
+		<property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+		<property name="validationQueryTimeout" value="7200000"/>
+		<property name="testWhileIdle" value="true"/>
+	</bean>
+	
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<property name="mapperLocations"
+			value="/WEB-INF/spring/mapper/*-mapper.xml" />
+		<property name="typeAliasesPackage"
+			value="com.biz.rbooks.domain" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+	
+	<mybatis-spring:scan
+		base-package="com.biz.rbooks.repository" />
+</beans>
