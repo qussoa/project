@@ -20,6 +20,6 @@ public class BookVO {
 	private String b_auther;	//	nvarchar2(125 char)
 	private String b_comp;	//	nvarchar2(125 char)
 	private String b_year;	//	varchar2(10 byte)
-	private String b_iprice;	//	number
+	private int b_iprice;	//	number
 	
 }

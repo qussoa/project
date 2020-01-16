@@ -12,8 +12,13 @@
 	$(function() {
 		//$("#btn-write").click(function(){
 			
-		$("#btn-write").click(()=>{
-			document.location.href="${rootPath}/book/write"
+	$("#btn-write").click(function(){
+			document.location.href="${rootPath}/rbook/insert"
+		})
+		
+		$("#main-table tbody tr").click(function(){
+			let rb_seq = $(this).attr("data-id")
+			document.location.href = "${rootPath}/rbook/view/" + rb_seq
 		})
 	})
 </script>
@@ -27,23 +32,25 @@
 		<table id="main-table">
 			<thead>
 				<tr>
+					<th>사용자 ID</th>
 					<th>도서코드</th>
 					<th>도서이름</th>
-					<th>출판사</th>
-					<th>저자</th>
-					<th>구입일자</th>
-					<th>가격</th>
+					<th>독서일자</th>
+					<th>독서시간</th>
+					<th>한줄평</th>
+					<th>별점</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${BLIST}" var="BOOK">
-					<tr>
-						<td>${BOOK.b_code}</td>
-						<td>${BOOK.b_name}</td>
-						<td>${BOOK.b_comp}</td>
-						<td>${BOOK.b_auther}</td>
-						<td>${BOOK.b_year}</td>
-						<td>${BOOK.b_iprice}</td>
+				<c:forEach items="${RBOOKS}" var="rBook">
+					<tr data-id="${rBook.rb_seq}">
+						<td>사용자 ID</td>
+						<td>${rBook.rb_bcode}</td>
+						<td>${rBook.rb_bname}</td>
+						<td>${rBook.rb_date}</td>
+						<td>${rBook.rb_stime}</td>
+						<td>${rBook.rb_subject}</td>
+						<td>${rBook.rb_star}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
