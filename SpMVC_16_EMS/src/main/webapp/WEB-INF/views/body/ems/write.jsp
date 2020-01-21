@@ -28,7 +28,9 @@
 			witdh : '100%',
 			toolbar : toolbar,
 			height : '200px',
-			disableDragAndDrop : true
+			// 이미지 업로드는 불가능하나 이미지를 첨부하는 것만 가능
+			// ture -> false
+			disableDragAndDrop : false
 		})
 	})
 </script>
@@ -36,8 +38,8 @@
 	<form:form modelAttribute="emailVO" >
 
 		<div class="in-box">
-			<label for="from_emil">보내는 Email</label>
-			<form:input path="from_email" />
+			<label for="fromEmil">보내는 Email</label>
+			<form:input path="fromEmail" />
 		</div>
 
 		<div class="in-box">
@@ -46,18 +48,18 @@
 		</div>
 
 		<div class="in-box">
-			<label for="send_date">작성 일자</label>
-			<form:input path="send_date" />
+			<label for="sendDate">작성 일자</label>
+			<form:input path="sendDate" />
 		</div>
 
 		<div class="in-box">
-			<label for="send_time">작성 시각</label>
-			<form:input path="send_time" />
+			<label for="sendTime">작성 시각</label>
+			<form:input path="sendTime" />
 		</div>
 
 		<div class="in-box">
-			<label for="from_name">작성자</label>
-			<form:input path="from_name" />
+			<label for="fromName">작성자</label>
+			<form:input path="fromName" />
 		</div>
 
 		<div class="in-box">
