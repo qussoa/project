@@ -18,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 public class SendMailService {
 
 	private final JavaMailSender xMail;
-	
+	/**
+	 * 
+	 * @param emailVO
+	 */
 	
 	public void sendMail(EmailVO emailVO) {
 		String from_email = emailVO.getFrom_email();
