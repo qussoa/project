@@ -6,7 +6,7 @@
 <mapper namespace="com.biz.bbs.mapper.BBsDao">
 
 	<select id="selectMain" resultMap="bbsReplay">
-		SELECT * FROM tbl_bbs WHERE bbs_p_id is NULL
+		SELECT * FROM tbl_bbs WHERE bbs_p_id is NULL OR bbs_p_id = 0
 
 	</select>
 	<resultMap type="bbsVO" id="bbsReplay">

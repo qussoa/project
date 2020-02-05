@@ -19,6 +19,13 @@
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- include summernote css/js -->
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<script src="${rootPath}/js/summernote-ko-KR.min.js"></script>
 <style>
 body {
 	border: 1px solid #aaa;
@@ -29,6 +36,29 @@ body {
 		$("#btn-writer").click(function() {
 			document.location.href = '${rootPath}/bbs/input'
 		})
+		
+	var toolbar = [ [ 'style', [ 'bold', 'italic', 'underline' ] ],
+				[ 'fontsize', [ 'fontsize' ] ],
+				[ 'fontstyle', [ 'fontname' ] ], [ 'color', [ 'color' ] ],
+				[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+				[ 'height', [ 'height' ] ], [ 'table', [ 'table' ] ],
+				[ 'insert', [ 'link', 'hr', 'picture' ] ],
+				[ 'view', [ 'fullscreen', 'codeview' ] ]
+
+		]
+				
+	$("#bbs_content").summernote({
+			
+			lang : 'ko-KR',
+			placeholder : '본문을 입력',
+			witdh : '100%',
+			toolbar : toolbar,
+			height : '200px',
+			// 이미지 업로드는 불가능하나 이미지를 첨부하는 것만 가능
+			// ture -> false
+			disableDragAndDrop : false
+		})
+		
 	})
 </script>
 </head>
@@ -39,7 +69,8 @@ body {
 	<li class="nav-item"><a class="nav-link" href="${rootPath}/">Home</a></li>
 	<li class="nav-item justify-content-end"><a class="nav-link"
 		href="${rootPath}/member/login">로그인</a></li>
-	<li class="nav-item"><a class="nav-link" href="${rootPath}/member/join">회원가입</a></li>
+	<li class="nav-item"><a class="nav-link"
+		href="${rootPath}/member/join">회원가입</a></li>
 </ul>
 <body class="container">
 

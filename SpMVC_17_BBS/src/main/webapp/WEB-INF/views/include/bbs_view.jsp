@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
+
 <style>
 .card-header h3 {
 	display: inline-block;
@@ -25,11 +26,34 @@
 	<button type="button" class="btn">댓글</button>
 </div>
 
-<div>
-	<form:form action="${rootPath}/bbs/replay" modelAttribute="bbsVO">
-		<form:textarea path="bbs_content" placeholder="답글 입력" cols=""
-			rows="5" />
-		<button class="btn btn-info">저장</button>
+<c:if test="${bbsVO.bbs_p_id == 0}">
+	<script>
+		$(function() {
+			$("button.btn-r-save").click(function() {
+				let bbs_writer = $("#bbs_writer").val()
+				let bbs_content = $("#bbs_content").val()
 
+				if (bbs_writer == "") {
+					alert("작성자 입력")
+					$("#bbs_wirter").focus()
+					return false
+				}
+				if (bbs_content == "") {
+					alert("본문 입력")
+					$("#bbs_content").focus()
+					return false
+				}
+				$("form").submit()
+			})
+
+		})
+	</script>
+	<form:form action="${rootPath}/bbs/replay" modelAttribute="bbsVO">
+		<div class="form-group">
+			<input class="form-control" id="bbs_writer" name="bbs_writer"
+				placeholder="답글" />
+		</div>
+		<textarea name="bbs_content" id="bbs_content"></textarea>
+		<button class="btn btn-info btn-r-save" type="button">저장</button>
 	</form:form>
-</div>
+</c:if>
