@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.biz.crawl.persistence.NaverDao">
+
+	<insert id="insert">
+		INSERT INTO `tbl_movie`
+		(ID,
+		M_RANK,
+		M_TITLE,
+		M_DETAIL_URL,
+		M_IMAGE_URL
+		)VALUES(
+		#{id},
+		#{m_rank},
+		#{m_title},
+		#{m_detail_url},
+		#{m_image_url}
+		);
+
+	</insert>
+
+</mapper> 

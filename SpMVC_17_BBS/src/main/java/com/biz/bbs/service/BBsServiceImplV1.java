@@ -9,15 +9,18 @@ import com.biz.bbs.mapper.BBsDao;
 
 import lombok.RequiredArgsConstructor;
 
+
+@Service("bServcieV1")
 @RequiredArgsConstructor
-@Service("bServiceV1")
 public class BBsServiceImplV1 implements BBsService {
 
 	/*
-	 * protected 상속받은 클래스만 접근가능
+	 * protected
+	 * 상속받은 클래서만 접근가능하도록 한다.
+	 * 
 	 */
 	protected final BBsDao bbsDao;
-
+	
 	@Override
 	public List<BBsVO> selectAll() {
 		// TODO Auto-generated method stub
@@ -27,8 +30,8 @@ public class BBsServiceImplV1 implements BBsService {
 
 	@Override
 	public BBsVO findById(long bbs_id) {
-
 		return bbsDao.findById(bbs_id);
+		//return null;
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public class BBsServiceImplV1 implements BBsService {
 	}
 
 	@Override
-	public List<BBsVO> findBySubjectAndWriter(String subject, String writer) {
+	public List<BBsVO> findBySubAndWriter(String subject, String writer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -53,12 +56,11 @@ public class BBsServiceImplV1 implements BBsService {
 	public int save(BBsVO bbsVO) {
 
 		long bbs_id = bbsVO.getBbs_id();
-		if (bbs_id > 0) {
+		if(bbs_id > 0) {
 			bbsDao.update(bbsVO);
 		} else {
 			bbsDao.insert(bbsVO);
 		}
-
 		return 0;
 	}
 
@@ -76,7 +78,9 @@ public class BBsServiceImplV1 implements BBsService {
 		String subject = "re : " + bbsVO.getBbs_subject();
 		bbsVO.setBbs_subject(subject);
 		bbsDao.insert(bbsVO);
+		
 		return null;
+	
 	}
 
 }

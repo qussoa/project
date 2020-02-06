@@ -8,7 +8,11 @@ import com.biz.bbs.domain.CommentVO;
 
 public interface CommentDao {
 
-	@Select("SELECT * FROM tbl_cmt WHERE cmt_p_id =#{cmt_p_id}")
+	@Select("SELECT * FROM tbl_cmt WHERE cmt_p_id = #{cmt_p_id}")
 	public List<CommentVO> selectAll(long cmt_p_id);
+	
+	public int insert(CommentVO cmmVO);
+	public int update(CommentVO cmmVO);
+	public int delete(long cmt_id);
 	
 }
