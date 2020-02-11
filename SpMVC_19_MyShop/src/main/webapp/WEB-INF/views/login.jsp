@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <style>
 @font-face {
@@ -145,7 +147,7 @@
 	})
 </script>
 
-<form method="POST" action="${rootPath}/login" class="login-form">
+<form:form method="POST" action="${rootPath}/login" class="login-form">
 	<h2>SIGN-IN</h2>
 	<c:if test="${param.error != null }">
 		<h3>you missed your id or password</h3>
@@ -161,11 +163,23 @@
 	<c:if test="${LOGIN_MSG == '0'}">
 		<h3>welcome sign-in</h3>
 	</c:if>
+	<!-- spring form tag를 사용하면 생략 가능
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-	<input type="text" id="id" name="id" placeholder="USER ID">
+	 -->
+	<input type="text" id="username" name="username" placeholder="USER ID">
 	<input type="password" id="password" name="password"
 		placeholder="USER PW">
 	<button type="submit" id="btn-login">LOGIN</button>
 
 	<button type="submit" id="btn-join">JOIN</button>
-</form>
+</form:form>
+
+
+
+
+
+
+
+
+
+
