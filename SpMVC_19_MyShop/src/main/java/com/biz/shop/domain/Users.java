@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 /*
  * spring security에서 DB를 연동하여
@@ -31,5 +32,6 @@ public class Users {
 	private String username;
 	private String password;
 	private boolean enabled;
+	
 	
 }

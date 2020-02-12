@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <c:set var="rootPath" value="${pageContext.request.contextPath}" />
 <%@ include file="/WEB-INF/views/include/include-head.jspf" %>
 <style>
@@ -91,60 +92,50 @@
 	display: none;
 }
 </style>
-
 <script>
-	$(function() {	
-		
+	$(function() {
+
 		$("#btn-join").click(function() {
-			document.location.href = "${rootPath}/auth/join"
+
+			// 유효성 검사 
+			// id, password가 입력되지 않았을 때 경고
+			let username = $("#username")
+			let password = $("#password")
+			let re_password = $("#re_password")
+
+			if (username.val() == "") {
+				alert("아이디를 입력하시오")
+				username.focus()
+				return false;
+			}
+			if (password.val() == "") {
+				alert("비밀번호를 입력하시오")
+				password.focus()
+				return false;
+			}
+			if (re_password.val() == "") {
+				alert("비밀번호 재확인 입력하시오")
+				re_password.focus()
+				return false;
+			}
+			if (password.val() != re_password.val()) {
+				alert("비밀번호 재확인 입력하시오")
+				re_password.focus()
+				return false;
+			}
+			$("form").submit()
 		})
-/* 
-		$("#btn-login").click(
-				function() {
-
-					// 유효성 검사 
-					// id, password가 입력되지 않았을 때 경고
-					let u_id = $("#username").val()
-					if (u_id == "") {
-						alert("아이디를 입력하시오")
-						$("#username").focus()
-						return false;
-					}
-					$.post("${rootPath}/rest/member/login", $("form")
-							.serialize(), function(result) {
-						alert(result)
-						document.location.href = document.location.href
-						//alert(result)
-					})
-
-				}) */
 	})
 </script>
 
-<form:form method="POST" action="${rootPath}/login" class="login-form">
-	<h2>SIGN-IN</h2>
-	<c:if test="${param.error != null }">
-		<h3>you missed your id or password</h3>
-	</c:if>
-	<c:if test="${LOGIN_MSG == 'TRY'}">
-		<h3>you have to sign-in</h3>
-	</c:if>
-
-	<c:if test="${LOGIN_MSG == 'NO_AUTH'}">
-		<h3>ONLY READ AUTH</h3>
-	</c:if>
-
-	<c:if test="${LOGIN_MSG == '0'}">
-		<h3>welcome sign-in</h3>
-	</c:if>
-	<!-- spring form tag를 사용하면 생략 가능
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token }">
-	 -->
+<form:form method="POST" action="${rootPath}/auth/join"
+	class="login-form">
+	<h2>JOIN</h2>
 	<input type="text" id="username" name="username" placeholder="USER ID">
 	<input type="password" id="password" name="password"
 		placeholder="USER PW">
-	<button type="submit" id="btn-login-s">LOGIN</button>
-
+	<input type="password" id="re_password" name="re_password"
+		placeholder="USER ReEnter PW">
 	<button type="button" id="btn-join">JOIN</button>
 </form:form>
 
